@@ -2,7 +2,8 @@
 Improve Queries Performance with PostgreSQL
 ===================
 
-####To improve query performance you must know the following topics:
+To improve query performance you must know the following topics:
+-----------------------------------------------------------------
  1. Types of indexes in PostgreSQL and their use cases.
  2. The execution plan for each of your queries using explain and analyze.
  3. How to work with subsets of information before joining tables.
