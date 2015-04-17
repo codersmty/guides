@@ -113,6 +113,8 @@ SELECT * FROM tests WHERE subject = 1 AND target = 2 WHERE success = true;
 # How to create/drop a Multi Column index:
 CREATE INDEX index_name ON table_name (column_one_name, column_two_name)
 CREATE INDEX test2_mm_idx ON test2 (major, minor);
+# Composite primary key
+CREATE UNIQUE INDEX index_order_id_user_id ON order_summaries (order_id, column_id)
 
 # Examples that benefit from a Multi Column index:
 SELECT name FROM test2 WHERE major = 'math' AND minor = 'music';
