@@ -87,7 +87,7 @@ SELECT * FROM users WHERE email ILIKE '%juan@g%'
 - Useful in situations when you want to access a subset of your table under specific filters.
 - Are marked by specific conditions where total > 1000, where state = 'complete'.
 
- ```sql
+```sql
  
 # How to create/drop a Partial index:
 CREATE INDEX index_name ON table_name (column_name) WHERE CONDITION
@@ -109,11 +109,11 @@ SELECT * FROM tests WHERE subject = 1 AND target = 2 WHERE success = true;
 - Useful in situations when you want to access a subset of your table according to the a condition applied to 2 colums.
 - A query using event_id = 1 AND state='complete' will have the benefits of this kind of index
 
- ```sql
+```sql
 # How to create/drop a Multi Column index:
 CREATE INDEX index_name ON table_name (column_one_name, column_two_name)
 CREATE INDEX test2_mm_idx ON test2 (major, minor);
 
 # Examples that benefit from a Multi Column index:
 SELECT name FROM test2 WHERE major = 'math' AND minor = 'music';
- ```
+```
