@@ -10,7 +10,7 @@ Comments in CoffeeScript
 ###
   multiline comment, perhaps a LICENSE.
 ###
-``
+```
 
 Variables and Scope
 --------------------
