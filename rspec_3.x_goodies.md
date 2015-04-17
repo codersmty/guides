@@ -63,6 +63,7 @@ end
 Hooks
 ================
 
+```ruby
 # prefer let and let! over before(:each)
 # let is lazy evaluated, will be set until is accessed the first time
 describe Stack do
@@ -113,10 +114,12 @@ after(:each) do
 end
 
 # use after(:all) when closing database connections, browsers, closing sockets
+````
 
 Helper Methods
 ================
 
+```ruby
 # use spec helper methods for repetitive tasks
 module UserExampleHelpers
   def create_valid_user
@@ -136,10 +139,12 @@ end
 RSpec.configure do |config|
   config.include(UserExampleHelpers)
 end
+````
 
 Shared Examples
 ==================
 
+```
 # use them when having objects that share behavior or roles
 
 # First define a shared example group with shared_examples_for()
@@ -161,11 +166,14 @@ describe "New York style thin pizza" do
 
   it_behaves_like "any pizza"
 end
+```
 
-# Expectations
+Expectations
+==============
 
 Use expect instead of should
-====================
+-----------------------------
+```ruby
 
 # use should and should_not for expectations, avoid using != it does not work
 # use == for value correctness and equal(obj) for object equality
@@ -177,12 +185,15 @@ Person.find_by(name: "David").should equal(person)
 expect(Person.find_by(name: "David"))to equal(person)
 
 expect(3 * 5).to_not eq 16
+````
 
 Floating point calculations
-=============================
+-----------------------------
 
+```ruby
 # test will pass if value ranges from 5.25+-0.005
 expect(result).to be_close(5.25, 0.005)
+````
 
 Expect for changes
 =======================
