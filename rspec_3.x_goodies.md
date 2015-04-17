@@ -579,6 +579,7 @@ Focus on interaction rather than state
 2. Use message expectations instead of stubs when possible
 3. Describe the behavior and interaction
 
+```ruby
 # Before
 describe Statement do
   it "uses the customer's name in the header (with a stub)" do
@@ -599,12 +600,15 @@ describe Statement do
     expect(statement.header).to eq "Statement for Dave Astels"
   end
 end
+```
 
-# Custom Matchers
+Custom Matchers
+-----------------
+
+```ruby
 require 'rspec/expectations'
-
 # Always scope your rspec helpers
-module BoletiaHelpers
+module MyAppHelpers
   RSpec::Matchers.define :be_a_multiple_of do |expected|
     # implements the match logic
     match do |actual|
@@ -624,3 +628,4 @@ module BoletiaHelpers
     end
   end
 end
+```
