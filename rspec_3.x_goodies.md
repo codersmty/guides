@@ -144,7 +144,7 @@ end
 Shared Examples
 ==================
 
-```
+```ruby
 # use them when having objects that share behavior or roles
 
 # First define a shared example group with shared_examples_for()
@@ -196,8 +196,9 @@ expect(result).to be_close(5.25, 0.005)
 ````
 
 Expect for changes
-=======================
+-------------------
 
+```ruby
 # expecting a change in count
 expect {
   User.create!(role: "admin")
@@ -216,10 +217,12 @@ expect {
 expect {
   User.create!(role: "admin")
 }.to change { User.admins.count }.from(0).to(1)
+````
 
 Expecting Errors
-====================
+-----------------
 
+```ruby
 # expect to raise any subclass of Exception
 expect { do_something_risky }.to raise_error
 
@@ -238,19 +241,23 @@ expect {
   account.withdraw 75, :dollars
 }.to raise_error(InsufficientFundsError,
     "attended to withdraw 75 dollars from an account with 50 dollars")
+````
 
 Expecting a Throw
-====================
+------------------
 
+```ruby
 course = Course.new(seats: 20)
 20.times { Course.register Student.new }
 lambda {
   course.register Student.new
 }.should throw_symbol(:course_full)
+````
 
 Predicate Matches
-======================
+-------------------
 
+```ruby
 # A predicate method is one that ends with "?" and returns a Boolean response
 # use be_ to match predicate methods
 
@@ -260,10 +267,12 @@ expect(array).to be_empty
 
 expect(user).to be_an_instance_of(User)
 expect(user).to be_a_kind_of(Player)
+````
 
 Expecting true or false
-========================
+------------------------
 
+```ruby
 # In ruby everything evals to true except false and nil
 
 # to match things that will evaluate to true and false
@@ -276,10 +285,12 @@ expect(nil).to be_false
 # to match the exact true and false values
 expect(true).to equal(true)
 expect(false).to equal(false)
+```
 
 Expecting for things to have or contain other things
-======================================================
+-----------------------------------------------------
 
+```ruby
 # Generic collections
 expect(request.parameters).to have_key(:id)
 
@@ -297,18 +308,23 @@ expect(collection).to have(30).items
 expect(day).to have_exactly(24).hours
 expect(dozen_bagels).to have_at_least(12).bagels
 expect(internet).to have_at_most(2037).killing_social_networking_apps
+````
 
 Expectations with standard operators
-======================================
+-------------------------------------
+
+```ruby
 expect(result).to =~ /some regex/
 expect(result).to be == 7
 expect(result).to be < 7
 expect(result).to be > 7
 expect(result).to be >= 7
+```
 
 Generated descriptions
-==========================
+-----------------------
 
+```ruby
 # use 'specify' instead of 'it' to help you generate descriptions
 # the following example will display
 # A new chess board
@@ -319,10 +335,12 @@ describe "A new chess board" do
   specify { expect(@board).to have(32).pieces }
   specify { @board.should have(32).pieces }
 end
+```
 
 Subjectivity
-==================
+-------------
 
+```ruby
 # Explicity subject
 describe Person do
   subject { Person.new(birthdate: 19.years.ago }
@@ -343,13 +361,16 @@ end
 describe RSpecUser do
   it { is_expected_to be_elegible_to_vote }
 end
+```
 
-# Rspec Mocks
+Rspec Mocks
+============
 
 Test Doubles
-===================
+-------------
 
-# an object that stands in for another object
+```ruby
+# A double is: an object that stands in for another object
 
 # creating a double
 user_double = double("user")
@@ -369,10 +390,12 @@ end
 
 # creating a double that reseembles an actual object
 book = instance_double("Book", pages: 250)
+````
 
 Message Expectations
-========================
+---------------------
 
+```ruby
 # A message stub that will raise an error if never called
 describe Statement do
   it "logs a message on generate" do
@@ -386,10 +409,12 @@ describe Statement do
     statement.generate
   end
 end
+```
 
 Test Specific Extensions
-==========================
+-------------------------
 
+```ruby
 # Partial Stubing. Use it when you want to stub certain behavior of an existing
 # object
 
@@ -428,10 +453,12 @@ describe WidgetsController do
     end
   end
 end
+```
 
 More on Method Stubs
-======================
+---------------------
 
+```ruby
 # One line shortcut
 # Use this shortcut to specify values on the double
 user_double = double("user", first_name: "Ricky", last_name: "Martinez")
@@ -443,10 +470,12 @@ allow(ages).to receive(:age) do |what|
   return 21 if what == "drinking"
   return 18 if what == "voting"
 end
+```
 
 More on messages Expectations
-================================
+------------------------------
 
+```ruby
 # use count when expecting a specific number of method calls
 mock_account.should_receive(:withdraw).exactly(1).times
 expect(mock_account).to receive(:withdraw).exactly(1).times
@@ -515,46 +544,37 @@ expect(@network_connection).to receive(:open_connection).
 # Raising an exception from a mock
 expect(account_double).to receive(:withdraw).and_raise
 expect(account_double).to receive(:withdraw).and_raise(InsufficientFunds)
+```
 
-# When to use Test Doubles
+When to use Test Doubles
+=========================
 
 Isolation from Dependencies
-=================================
-
+----------------------------
 1. Don't create stubs from easy setup objects
-2. Create stubs for objects that have external dependencies and are hard to
-   setup and can slow runtime. i.e. ActiveRecord, DB connections, Network.
+2. Create stubs for objects that have external dependencies and are hard to setup and can slow runtime. i.e. ActiveRecord, DB connections, Network.
 
 Isolation from Nondeterminism
-=================================
-
-1. Create stubs to avoid specs failing from other objects that behave randomly,
-   i.e. connection errors, timeout errors.
+------------------------------
+1. Create stubs to avoid specs failing from other objects that behave randomly, i.e. connection errors, timeout errors.
 
 Making Progress without Implemented Dependencies
-=================================================
+--------------------------------------------------
+1. Use stubs if you know other object's APIS but the implementation is not ready yet.
 
-1. Use stubs if you know other object's APIS but the implementation is not ready
-   yet.
-
-Interface Discover
-====================
-
+Interface Discovery
+-------------------
 1. Use stubs to discover new objects or interfaces.
 2. Is easy to come by with new objects or interfaces when describing behavior.
 3. Introduce a new mock and create the object/method later.
 
 Focus on Roles not Objects
-===========================
-
-1. When creating a stub focus on what the interface should be, focus on the
-   role.
-2. A logger could be called a recorder, a reporter or anything we want as long
-   as it act out the role of a logger.
+---------------------------
+1. When creating a stub focus on what the interface should be, focus on the role.
+2. A logger could be called a recorder, a reporter or anything we want as long as it act out the role of a logger.
 
 Focus on interaction rather than state
-=======================================
-
+---------------------------------------
 1. Avoid referencing the internals of an object
 2. Use message expectations instead of stubs when possible
 3. Describe the behavior and interaction
