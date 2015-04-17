@@ -107,7 +107,7 @@ SELECT * FROM tests WHERE subject = 1 AND target = 2 WHERE success = true;
 #### Multi-column indexes, specially aimed for queries requiring 2 or more columns regularly:
 
 - Useful in situations when you want to access a subset of your table according to the a condition applied to 2 colums.
-- A query using event_id = 1 AND state='complete' will have the benefits of this kind of index
+- A query using order_id = 1 AND state='complete' will have the benefits of this kind of index
 
 ```sql
 # How to create/drop a Multi Column index:
