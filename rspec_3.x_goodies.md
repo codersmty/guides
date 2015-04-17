@@ -1,5 +1,4 @@
 # Rspec 3.x
-# Code Examples
 
 Describe things and context
 ============================
