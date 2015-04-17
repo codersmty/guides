@@ -4,7 +4,7 @@ The CoffeeScript Way
 Comments in CoffeeScript
 --------------------------
 
-``coffeescript
+```coffeescript
 # single line comment
 
 ###
