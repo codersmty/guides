@@ -1,7 +1,8 @@
-# CoffeeScript
+The CoffeeScript Way
+======================
 
-Comments
-==========
+Comments in CoffeeScript
+--------------------------
 
 ``coffeescript
 # single line comment
@@ -12,7 +13,7 @@ Comments
 ``
 
 Variables and Scope
-===================
+--------------------
 
 ```coffeescript
 # All variables are by default scoped locally
@@ -24,7 +25,7 @@ Variables and Scope
 ```
 
 Functions
-=========
+----------
 
 ```coffeescript
 # use the slim arrow to declare a function
@@ -65,7 +66,7 @@ element.addEventListener "click", (e) => this.clickHandler(e)
 ```
 
 Objects Literals and Array Definition
-=====================================
+--------------------------------------
 
 ```coffeescript
 # Object literals
@@ -95,7 +96,7 @@ Objects Literals and Array Definition
 ```
 
 Flow Control
-============
+-------------
 
 ```coffeescript
 # ruby style one liners if and unless
@@ -114,7 +115,7 @@ if total is 0 and discount is 0 then "God save us all!"
 ```
 
 String Interpolation
-=====================
+---------------------
 
 ```coffeescript
   # oh good old ruby and multiline strings also!
@@ -126,7 +127,7 @@ String Interpolation
 ```
 
 Loops and Comprehensions
-========================
+------------------------
 
 ```coffeescript
 # Iterate over the array's elements
@@ -172,7 +173,7 @@ alert("#{key} = #{value}") for key, value of object
 ```
 
 Aliases and the Existencial Operator
-====================================
+-------------------------------------
 
 ```coffeescript
 # @ is an alias for this
@@ -206,7 +207,7 @@ FormHelpers = do ->
 ```
 
 Classes
-===========
+---------
 
 ```coffeescript
 # basic class structure
@@ -273,45 +274,44 @@ include Parrot,
 ```
 
 Rails, Coffeescript and KnockoutJS
+-----------------------------------
 
+```coffeescript
 # First: Define an MV structure for your javascript code under
 # app/assets/javascripts
 
-# money_collector == your_appname
-money_collector/
+your_app_name/
   models/
   views/
   utils/
-  money_collector.coffee
+  your_app_name.coffee
 
-# Second: Define global variables/namespaces to load each class
+# Second: Define global variables/namespaces to load each object type
 # inside my_appname.coffee
 
-```coffeescript
 #=require_self
 #=require jquery
 #=require knockout
 #=require_tree
 
-window.MoneyCollector:
+window.YourAppName:
   Models: {}
   Views:
     Users: {}
     Posts: {}
   Utils: {}
-```
 
 # Third: Place every model, view or utility class in their folder
-# use class MoneyCollector.Models.User, class MoneyCollector.Views.Users.Create
+# use class YourAppName.Models.User, class YourAppName.Views.Users.Create
 # pattern to defined each class name and keeping them under their scopes
 
-class MoneyCollector.Models.User
+class YourAppName.Models.User
   constructor: (args = {}) ->
 
-class MoneyCollector.Views.Users.Show
+class YourAppName.Views.Users.Show
   constructor: ->
 
-# Fourth: Create objects and apply knockout bindings in the views show.html.erb
+# Fourth: Create objects and apply knockout bindings (or any other binding library) in the views show.html.erb
 
 <!-- ko with: user --!>
   <span data-bind="text: firstName"></span>
@@ -319,8 +319,9 @@ class MoneyCollector.Views.Users.Show
 <!-- /ko --!>
 
 <script>
-  ko.applyBindings(new MoneyCollector.Views.Users.Show());
+  ko.applyBindings(new YourAppName.Views.Users.Show());
 </script>
 
 # Fifth and last, require your_appname.coffee script inside your rails application.js
-//=require money_collector
+//=require your_app_name
+```
