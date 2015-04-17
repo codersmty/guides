@@ -3,10 +3,10 @@ Improve Queries Performance with PostgreSQL
 ===================
 
 ####Improving query performance involves the following topics:
- 1. Types of indexes in PostgreSQL and their use cases.
- 2. The execution plan for each of your queries using explain and analyze.
- 3. How to work with subsets of information before joining tables.
- 4. Retrieving only the information you need from your tuples.
+ 1. Knowing the types of indexes in PG and their use cases.
+ 2. Use Explan and Analyze to dig into query execution plans.
+ 3. Aggreation and subsets of tables beforing applying joins.
+ 4. Be aware of retrieving only the columns you need from your tuples.
 
 
 Indexes in PostgreSQL
