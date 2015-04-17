@@ -20,8 +20,23 @@ Indexes in PostgreSQL
 - Searching with LIKE operator for strings that start with: LIKE pattern%    
 
 ```sql
-CREATE INDEX index_name ON table_name column_name
+# How to create a B-Tree index:
+CREATE [UNIQUE] INDEX index_name ON table_name column_name
 DROP INDEX index_name
+
+# Examples that benefit form a B-Tree index:
+# Searching by a primary key
+SELECT * from users where user.id = 1
+
+# Joining tables via a foreign key
+SELECT * from users INNER JOIN addresses ON users.id = addresses.user_id
+
+# Search pattern with ilike, like hello%
+SELECT * from users where ilike 'arm%'
+
+# Search with >, <, >=, = operators
+SELECT * from orders where total > 1000
+SELECT * from orders where status = 'complete''
 ```
 
 #### GIN index, specially aimed for FTS or searching inside composite values (jsonb, hstore...):
@@ -30,19 +45,21 @@ DROP INDEX index_name
 - Supports operators on one-dimensional arrays
 - Improves performance on operations like: ilike '%pattern%' and FTS with addons like trigram, unaccent...
 
-
-Activate trgm extensión for fast searches with similarity or like, ilike operators.
+```sql
+# On a non ts_vector you must activate trgm extension for fast searches with
+# similarity (sinonyms) or like, ilike operators.
  
- ```sql
- CREATE EXTENSION pg_trgm;
- DROP EXTENSION pg_trgm;
-    
- CREATE INDEX index_name ON table_name USING  GIN(column_name gin_trgm_ops)
+# How to activate/deactivate pg_trgm extension
+CREATE EXTENSION pg_trgm;
+DROP EXTENSION pg_trgm;
+ 
+# How to create/drop a GIN index:   
+CREATE INDEX index_name ON table_name USING  GIN(column_name gin_trgm_ops)
+DROP index_name
 
- Example:
- CREATE INDEX trgm_idx ON test_trgm USING gin (t gin_trgm_ops);
- SELECT * FROM test_trgm WHERE t LIKE '%foo%bar';
- ```
+# Examples that benefit from a GIN index:
+SELECT * FROM users WHERE email ILIKE '%juan@g%'
+```
 
 #### GIST index, specially aimed for FTS and Two-dimension geometrical data types:
 - Best for dynamic data lookups
@@ -51,7 +68,19 @@ Activate trgm extensión for fast searches with similarity or like, ilike operat
 - Improves performance on operations like: ilike '%pattern%' and FTS with addons like trigram, unaccent...
 
 ```sql
-    CREATE INDEX index_name ON table_name USING GIST(column_name gist_trgm_ops)
+# On a non ts_vector you must activate trgm extension for fast searches with
+# similarity (sinonyms) or like, ilike operators.
+ 
+# How to activate/deactivate pg_trgm extension
+CREATE EXTENSION pg_trgm;
+DROP EXTENSION pg_trgm;
+ 
+# How to create/drop a GIST index:   
+CREATE INDEX index_name ON table_name USING  GIST(column_name gist_trgm_ops)
+DROP index_name
+
+# Examples that benefit from a GIST index:
+SELECT * FROM users WHERE email ILIKE '%juan@g%'
 ```
 
 #### Partial indexes, specially aimed to create portions of a dataset:
@@ -59,23 +88,20 @@ Activate trgm extensión for fast searches with similarity or like, ilike operat
 - Are marked by specific conditions where total > 1000, where state = 'complete'.
 
  ```sql
+ 
+# How to create/drop a Partial index:
 CREATE INDEX index_name ON table_name (column_name) WHERE CONDITION
+DROP index_name
 
-Examples:
+# Unique composite index with 2 colums and 1 condition
+CREATE UNIQUE INDEX tests_success_constraint ON tests (subject, target) WHERE success = true;
 
-CREATE TABLE tests (
-    subject text,
-    target text,
-    success boolean
-);
+# Partial index where order_nr is not true
+CREATE INDEX orders_unbilled_index ON orders (order_nr) WHERE billed is not true;
 
-CREATE UNIQUE INDEX tests_success_constraint ON tests (subject, target) WHERE success;
-
-CREATE INDEX orders_unbilled_index ON orders (order_nr)
-    WHERE billed is not true;
-
-    
+# Examples that benefit from a Partial index:
 SELECT * FROM orders WHERE billed is not true AND order_nr < 10000;
+SELECT * FROM tests WHERE subject = 1 AND target = 2 WHERE success = true;
 ```
 
 #### Multi-column indexes, specially aimed for queries requiring 2 or more columns regularly:
@@ -84,15 +110,10 @@ SELECT * FROM orders WHERE billed is not true AND order_nr < 10000;
 - A query using event_id = 1 AND state='complete' will have the benefits of this kind of index
 
  ```sql
-CREATE INDEX [index_name] ON [table_name] (column_name, column_name)
-
-CREATE TABLE test2 (
-  major int,
-  minor int,
-  name varchar
-);
-
+# How to create/drop a Multi Column index:
+CREATE INDEX index_name ON table_name (column_one_name, column_two_name)
 CREATE INDEX test2_mm_idx ON test2 (major, minor);
 
-SELECT name FROM test2 WHERE major = constant AND minor = constant;
+# Examples that benefit from a Multi Column index:
+SELECT name FROM test2 WHERE major = 'math' AND minor = 'music';
  ```
