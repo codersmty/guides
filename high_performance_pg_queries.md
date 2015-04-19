@@ -6,7 +6,7 @@ Improve Queries Performance with PostgreSQL
  1. Knowing the types of indexes in PG and their use cases.
  2. Use Explain and Analyze to dig into query execution plans.
  3. Aggreation and subsets of tables beforing applying joins.
- 4. Be aware of retrieving only the columns you need from your tuples.
+ 4. Retrieve only the columns you need from your tuples.
 
 
 Indexes in PostgreSQL
