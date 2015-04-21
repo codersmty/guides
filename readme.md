@@ -1,6 +1,6 @@
 ## Coders Mty Guides
 
-Coders Mty Guides is an attempt to standardize a code convention all over the city. They will help you create beautiful and maintanable code or even how to start with a language best practices.
+Coders Mty Guides is an attempt to standardize a code convention all over the city. They will help you create beautiful and maintainable code or even how to start with a language best practices.
 
 It includes practices for multiple languages, based on our own experience and experts advice. It also includes how to handle code review when working with teammates.
 
