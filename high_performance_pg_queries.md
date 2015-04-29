@@ -3,14 +3,13 @@ Improve Queries Performance with PostgreSQL
 ===================
 
 ####Improving query performance involves the following topics:
- [1. Knowing the types of indexes in PG and their use cases.](#Header1)
+ [1. Knowing the types of indexes in PG and their use cases.](# Indexes in PostgreSQL)
  2. Use Explain and Analyze to dig into query execution plans.
  3. Aggreation and subsets of tables beforing applying joins.
  4. Retrieve only the columns you need from your tuples.
 
 
-#Header1
-1. Indexes in PostgreSQL
+1. # Indexes in PostgreSQL
 -------------
 
 #### B-Tree index, is the most common type of index, it is used in the following cases:
