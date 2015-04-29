@@ -129,12 +129,13 @@ SELECT name FROM test2 WHERE major = 'math' AND minor = 'music';
 
 ```terminal
 # In Linux
-$pg_ctl stop
-$sudo su -
-$syn
-$echo 3 > /proc/sys/vm/drop_caches
-$logout
-$pg_ctl start -l $PGLOG
+pg_ctl stop
+sudo su -
+syn
+echo 3 > /proc/sys/vm/drop_caches
+logout
+pg_ctl start -l $PGLOG
+
 # In Mac OS X
-$sudo purge
+sudo purge
 ```
