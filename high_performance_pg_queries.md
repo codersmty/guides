@@ -123,7 +123,7 @@ SELECT name FROM test2 WHERE major = 'math' AND minor = 'music';
 2. Use Explain and Analyze to dig into query execution plans.
 --------------------------------------------------------------
 
-#### Real execution time having cleared our cache
+#### Real execution time query plans
 
 - By default PostgreSQL uses the system cache to store the latest executed queries, in order to have a real executing time and metrics we must clear the cache before running a certain query plan:
 
@@ -131,7 +131,7 @@ SELECT name FROM test2 WHERE major = 'math' AND minor = 'music';
 # In Linux
 pg_ctl stop
 sudo su -
-syn
+sync
 echo 3 > /proc/sys/vm/drop_caches
 logout
 pg_ctl start -l $PGLOG
