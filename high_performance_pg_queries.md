@@ -119,3 +119,22 @@ CREATE UNIQUE INDEX index_order_id_user_id ON order_summaries (order_id, column_
 # Examples that benefit from a Multi Column index:
 SELECT name FROM test2 WHERE major = 'math' AND minor = 'music';
 ```
+
+2. Use Explain and Analyze to dig into query execution plans.
+--------------------------------------------------------------
+
+#### Real execution time having cleared our cache
+
+- By default PostgreSQL uses the system cache to store the latest executed queries, in order to have a real executing time and metrics we must clear the cache before running a certain query plan:
+
+```terminal
+# In Linux
+$pg_ctl stop
+$sudo su -
+$syn
+$echo 3 > /proc/sys/vm/drop_caches
+$logout
+$pg_ctl start -l $PGLOG
+# In Mac OS X
+$sudo purge
+```
