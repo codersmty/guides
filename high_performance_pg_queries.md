@@ -9,7 +9,7 @@ Improve Queries Performance with PostgreSQL
  4. Retrieve only the columns you need from your tuples.
 
 
-1. Indexes in PostgreSQL
+1. Knowing the types of indexes in PG and their use cases
 -------------
 
 #### B-Tree index, is the most common type of index, it is used in the following cases:
