@@ -139,3 +139,25 @@ pg_ctl start -l $PGLOG
 # In Mac OS X
 sudo purge
 ```
+
+#### EXPLAIN and ANALYZE basics
+
+- By prepending the command EXPLAIN and ANALYZE to your query you can get an execution plan and estimated costs in miliseconds. The execution plan must be read from bottom to top.
+
+```sql
+# Example query with EXPLAIN
+EXPLAIN ANALYZE SELECT * FROM customers;
+
+# Output for the query plan
+QUERY PLAN
+----------
+Seq Scan on customers  (cost=0.00..676.00 rows=20000 width=268) (actual time=0.011..34.489 rows=20000 loops=1)
+ Total runtime: 65.804 ms
+ 
+# cost=0.00..676.00: 0.00 is the startup estimated cost, how much work estimated to return the first row. 676.00 #total estimated execution cost. 
+# rows=20000 the number of rows expected to output
+# width=268 average number of bytes per each row output
+# actual time=0.11..34.489 the same as cost, but this ones are the real costs of executing the query.
+# rows=20000 the actual number of rows that were returned.
+# loops=1
+```
