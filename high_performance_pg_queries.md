@@ -127,7 +127,7 @@ SELECT name FROM test2 WHERE major = 'math' AND minor = 'music';
 
 - By default PostgreSQL uses the system cache to store the latest executed queries, in order to have a real executing time and metrics we must clear the cache before running a certain query plan:
 
-```terminal
+```
 # In Linux
 pg_ctl stop
 sudo su -
