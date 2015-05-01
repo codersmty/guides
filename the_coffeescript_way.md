@@ -199,11 +199,16 @@ blacknight.getLegs().kick?()
 # use it for initialization
 hash ?= {}
 
-# Modules: you can create modules using do notation
+# Modules: you can create modules using the do notation
 FormHelpers = do ->
+  # Public methods
   textFieldTag: () ->
   selectTag: () ->
   labelTag: () ->
+  
+  # Private methods
+  _initTextField = () ->
+  _buildLabelTag = () ->
 ```
 
 Classes
