@@ -278,6 +278,49 @@ include Parrot,
 (new Parrot).isDeceased
 ```
 
+Rails, Coffeescript using modules
+----------------------------------
+
+```coffeescript
+# This approach can be useful if you have a simple touch of js in your apps and still keeping your code decoupled
+# lets say, using jquery, some plugins, animations, effects
+
+# First: Create namespaces and containers for your view modules
+# app/assets/my_app.coffee
+window.MyApp = 
+    ViewHelpers:
+        Orders: {}
+        Customers: {}
+        Shared: {}
+# Second: For each html view with specific js behaviour create a my_view_name.coffee file
+# and use the Module pattern
+# app/assets/my_app/view_helpers/orders/index.coffee
+MyApp.ViewHelpers.Orders.Index = do ->
+    # Private interface
+    # Place helper methods only called from inside the module
+    _sayHi = (name) ->
+        alert(name)
+    
+    # Public interface
+    # Place here methods that should be called from the outside    
+    init: ->
+        _sayHi("Mr. Satan")
+        
+# Third: Fire the desired behaviour in your view after the dom is ready
+# app/views/orders/index.html.erb
+<% content_for :local_js %>
+<script>
+  $(function(){
+    MyApp.ViewHelpers.Orders.Index.init();
+  });
+</script>
+<% end %>
+
+# Finally: Include the my_app.coffee file in your application.coffee
+# app/assets/application.coffee
+//=require my_app.coffee
+```
+
 Rails, Coffeescript and KnockoutJS
 -----------------------------------
 
