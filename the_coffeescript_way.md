@@ -282,20 +282,27 @@ Rails, Coffeescript using modules
 ----------------------------------
 
 ```coffeescript
-# This approach can be useful if you have a simple touch of js in your apps and still keeping your code decoupled
-# lets say, using jquery, some plugins, animations, effects
+###
+This approach can be useful if you have a simple touch of js in your apps and still keeping your code decoupled
+lets say, using jquery, some plugins, animations, effects
+###
 
-# First: Create namespaces and containers for your view modules
-# app/assets/my_app.coffee
+###
+First: Create namespaces and containers for your view modules
+app/assets/my_app.coffee
+###
 window.MyApp = 
     ViewHelpers:
         Orders: {}
         Customers: {}
         Shared: {}
         
-# Second: For each html view with specific js behaviour create a my_view_name.coffee file
-# and use the Module pattern
-# app/assets/my_app/view_helpers/orders/index.coffee
+###
+Second: For each html view with specific js behaviour create a my_view_name.coffee file
+and use the Module pattern
+app/assets/my_app/view_helpers/orders/index.coffee
+###
+
 MyApp.ViewHelpers.Orders.Index = do ->
     # Private interface
     # Place helper methods only called from inside the module
@@ -306,9 +313,12 @@ MyApp.ViewHelpers.Orders.Index = do ->
     # Place here methods that should be called from the outside    
     init: ->
         _sayHi("Mr. Satan")
-        
-# Third: Fire the desired behaviour in your view after the dom is ready
-# app/views/orders/index.html.erb
+   
+###     
+Third: Fire the desired behaviour in your view after the dom is ready
+app/views/orders/index.html.erb
+###
+
 <% content_for :local_js %>
 <script>
   $(function(){
@@ -317,17 +327,21 @@ MyApp.ViewHelpers.Orders.Index = do ->
 </script>
 <% end %>
 
-# Finally: Include the my_app.coffee file in your application.coffee
-# app/assets/application.coffee
-//=require my_app.coffee
+###
+Finally: Include the my_app.coffee file in your application.coffee
+app/assets/application.coffee
+###
+#=require my_app.coffee
 ```
 
 Rails, Coffeescript and KnockoutJS
 -----------------------------------
 
 ```coffeescript
-# First: Define an MV structure for your javascript code under
-# app/assets/javascripts
+###
+First: Define an MV structure for your javascript code under
+app/assets/javascripts
+###
 
 your_app_name/
   models/
@@ -335,8 +349,10 @@ your_app_name/
   utils/
   your_app_name.coffee
 
-# Second: Define global variables/namespaces to load each object type
-# inside my_appname.coffee
+###
+Second: Define global variables/namespaces to load each object type
+inside my_appname.coffee
+###
 
 #=require_self
 #=require jquery
@@ -350,9 +366,11 @@ window.YourAppName:
     Posts: {}
   Utils: {}
 
-# Third: Place every model, view or utility class in their folder
-# use class YourAppName.Models.User, class YourAppName.Views.Users.Create
-# pattern to defined each class name and keeping them under their scopes
+###
+Third: Place every model, view or utility class in their folder
+use class YourAppName.Models.User, class YourAppName.Views.Users.Create
+pattern to defined each class name and keeping them under their scopes
+###
 
 class YourAppName.Models.User
   constructor: (args = {}) ->
@@ -372,5 +390,5 @@ class YourAppName.Views.Users.Show
 </script>
 
 # Fifth and last, require your_appname.coffee script inside your rails application.js
-//=require your_app_name
+#=require your_app_name
 ```
