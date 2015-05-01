@@ -292,6 +292,7 @@ window.MyApp =
         Orders: {}
         Customers: {}
         Shared: {}
+        
 # Second: For each html view with specific js behaviour create a my_view_name.coffee file
 # and use the Module pattern
 # app/assets/my_app/view_helpers/orders/index.coffee
