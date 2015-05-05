@@ -161,3 +161,4 @@ Seq Scan on customers  (cost=0.00..676.00 rows=20000 width=268) (actual time=0.0
 # rows=20000 the actual number of rows that were returned.
 # loops=1
 ```
+- A simple way to check if your queries are being fast is avoiding the use of Seq Scan and instead promote the use of Index Scan and Bitmap heap Scan (by adding indivual indexes in the cases describe in the first topic)
